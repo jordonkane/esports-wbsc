@@ -5,78 +5,82 @@ const cheerio = require('cheerio')
 
 const app = express()
 
+// News sources
+
 const newspapers = [
     {
-        name: 'The Conversation',
+        name: 'theconversation',
         address: 'https://theconversation.com/us/topics/',
         base: ''
     },
     {
-        name: 'Esports.net',
+        name: 'esportsnet',
         address: 'https://www.esports.net/news/',
         base: ''
     },
     {
-        name: 'Esports Insider',
+        name: 'esportsinsider',
         address: 'https://esportsinsider.com/category/latest-news/',
         base: ''
     },
     {
-        name: 'Wired',
+        name: 'wired',
         address: 'https://www.wired.com/tag/esports/',
         base: ''
     },
     {
-        name: 'Techspot',
+        name: 'techspot',
         address: 'https://www.techspot.com/tag/esports/',
         base: ''
     },
     {
-        name: 'The Guardian',
+        name: 'theguardian',
         address: 'https://www.theguardian.com/sport/esports',
         base: ''
     },
     {
-        name: 'Harvard',
+        name: 'harvard',
         address: 'https://hir.harvard.edu/',
         base: ''
     },
     {
-        name: 'Frontiers',
+        name: 'frontiers',
         address: 'https://www.frontiersin.org/articles?domain=all',
         base: ''
     },
     {
-        name: 'The Sport Journal',
+        name: 'thesportjournal',
         address: 'https://hir.harvard.edu/',
         base: ''
     },
     {
-        name: 'IJEsports',
+        name: 'ijesports',
         address: 'https://www.ijesports.org/',
         base: ''
     },
     {
-        name: 'Cappex',
+        name: 'cappex',
         address: 'https://www.cappex.com/articles',
         base: ''
     },
     {
-        name: 'Defense.gov',
+        name: 'defensegov',
         address: 'https://www.defense.gov/',
         base: ''
     },
     {
-        name: 'ESPN',
+        name: 'espn',
         address: 'https://www.espn.com/esports/',
         base: ''
     },
     {
-        name: 'Dot Esports',
+        name: 'dotesports',
         address: 'https://dotesports.com/',
         base: ''
     }
 ]
+
+// Array of newspapers
 
 const articles = []
 
@@ -125,7 +129,13 @@ newspapers.forEach(newspaper => {
 
 // API Homepage
 
-app.get('/', (req, res) => { res.json('E-Sports Web Scraper API') })
+app.get('/', (req, res) => { 
+
+    // API Title
+
+    res.json('E-Sports Web Scraper API') 
+
+})
 
 app.get('/news', (req, res) => {
     
@@ -133,37 +143,69 @@ app.get('/news', (req, res) => {
 
     res.json(articles)
 
-}).catch((err) => console.log) // Exception handling
+})
 
 // Endpoint to visit specific newspaper id.
 
-app.get('/news/:newspaperId', async (req, res) => {
+app.get('/news/:newspaperId', (req, res) => {
 
-    // Stores the desired newspaper
+    // Stores the desired newspaper.
 
     const newspaperId = req.params.newspaperId
 
-    // Filters array to find newspapers
+    // Filters array to find newspapers.
 
-    newspapers.filter(newspaper => newspaper.name == newspaperId)
+    const newspaperAddress = newspaper.filter(newspaper => newspaper.name == newspaperId)[0].address
+
+    // Filters array to find newspaper base.
+    
+    const newspaperBase = newspaper.filter(newspaper => newspaper.name == newspaperId)[0].base
 
     // Pass URL into "axios.get"
 
     axios.get(newspaperAddress).then(response => {
+       
+        // Stores "response.data" as variable "html."
 
-        // Newspaper to visit
+        const html = response.data
 
-        const newspaperId = red.params.newspaperId
+        // Passes variable into "cheerio.load."
 
-        const newspaperAddress = newspaper.fiter(newspaper => newspaper.name == newspaperId)[0].address
+        const $ = cheerio.load(html)
 
+        // Array of specific newspapers.
 
+        const specificArticles = []
+        
+         /*
+            Finds elements that have the <a> tag & contain "Esports"
+            Function grabs text from each of the <a> tags.
+        */
 
-    })
+        $('a:contains("esport")', html).each(function () {
+            
+            // Stores article title.
 
-    // Logs request interminal
+            const title = $(this).text()
 
-    console.log(newspaper)
+            // Grabs href for every <a> tag.
+
+            const url = $(this).attr('href')
+
+            // Pushes title & URL into "articles."
+
+            specificArticles.push({
+                title,
+                url: newspaperBase + url,
+                source: newspaperId
+            })
+        })
+
+        // Displays output in browser.
+
+        res.json(specificArticles)
+        
+    }).catch(err => console.log(err)) // Exception Handling
 
 })
 
