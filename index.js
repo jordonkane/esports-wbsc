@@ -7,40 +7,75 @@ const app = express()
 
 const newspapers = [
     {
-        name: '',
-        addess: '',
+        name: 'The Conversation',
+        address: 'https://theconversation.com/us/topics/',
         base: ''
     },
     {
-        name: '',
-        addess: '',
+        name: 'Esports.net',
+        address: 'https://www.esports.net/news/',
         base: ''
     },
     {
-        name: '',
-        addess: '',
+        name: 'Esports Insider',
+        address: 'https://esportsinsider.com/category/latest-news/',
         base: ''
     },
     {
-        name: '',
-        addess: '',
+        name: 'Wired',
+        address: 'https://www.wired.com/tag/esports/',
         base: ''
     },
     {
-        name: '',
-        addess: '',
+        name: 'Techspot',
+        address: 'https://www.techspot.com/tag/esports/',
         base: ''
     },
     {
-        name: '',
-        addess: '',
+        name: 'The Guardian',
+        address: 'https://www.theguardian.com/sport/esports',
         base: ''
     },
     {
-        name: '',
-        addess: '',
+        name: 'Harvard',
+        address: 'https://hir.harvard.edu/',
         base: ''
     },
+    {
+        name: 'Frontiers',
+        address: 'https://www.frontiersin.org/articles?domain=all',
+        base: ''
+    },
+    {
+        name: 'The Sport Journal',
+        address: 'https://hir.harvard.edu/',
+        base: ''
+    },
+    {
+        name: 'IJEsports',
+        address: 'https://www.ijesports.org/',
+        base: ''
+    },
+    {
+        name: 'Cappex',
+        address: 'https://www.cappex.com/articles',
+        base: ''
+    },
+    {
+        name: 'Defense.gov',
+        address: 'https://www.defense.gov/',
+        base: ''
+    },
+    {
+        name: 'ESPN',
+        address: 'https://www.espn.com/esports/',
+        base: ''
+    },
+    {
+        name: 'Dot Esports',
+        address: 'https://dotesports.com/',
+        base: ''
+    }
 ]
 
 const articles = []
@@ -100,7 +135,38 @@ app.get('/news', (req, res) => {
 
 }).catch((err) => console.log) // Exception handling
 
-app.get('/news/:newspaperId', async (req, res))
+// Endpoint to visit specific newspaper id.
+
+app.get('/news/:newspaperId', async (req, res) => {
+
+    // Stores the desired newspaper
+
+    const newspaperId = req.params.newspaperId
+
+    // Filters array to find newspapers
+
+    newspapers.filter(newspaper => newspaper.name == newspaperId)
+
+    // Pass URL into "axios.get"
+
+    axios.get(newspaperAddress).then(response => {
+
+        // Newspaper to visit
+
+        const newspaperId = red.params.newspaperId
+
+        const newspaperAddress = newspaper.fiter(newspaper => newspaper.name == newspaperId)[0].address
+
+
+
+    })
+
+    // Logs request interminal
+
+    console.log(newspaper)
+
+})
+
 // Listens to any changes on PORT 7000.
 
 app.listen(PORT, () => console.log(`server running on PORT ${PORT}`))
