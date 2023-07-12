@@ -1,23 +1,24 @@
-# Template
+# Esports Web Scaper API
+- 1
 ## Screenshots
-## Description
+## Overview
 - 1
 - 2
 - 3
 - 4
 - 5
-### Frameworks
+### Features
 - 1
 - 2
 - 3
 - 4
-- 5
-## What I learned:
-- 1
-- 2
-- 3
-## How to Use
-- 1
-- 2
+## Usage
+- 
+
+## News Sites
+| Title | URL |
+| --- | --- |
+| `git status` | https://theconversation.com/us/topics/ |
+| git diff | Show file differences that haven't been staged   
 ## Author Info
 - Website: [LinkedIn - Jordon Kane](https://www.linkedin.com/in/jordonkane/)
