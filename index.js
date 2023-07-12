@@ -131,7 +131,7 @@ newspapers.forEach(newspaper => {
 
 app.get('/', (req, res) => { 
 
-    // API Title
+    // Displays API Title
 
     res.json('E-Sports Web Scraper API') 
 
