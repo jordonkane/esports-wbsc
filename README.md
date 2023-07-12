@@ -1,7 +1,7 @@
 # Esports Web Scaper API :video_game:
 The Esports Web Scraper API searches and displays esports-related articles from a list of news websites.
 ## Overview :sunflower:
-The API searches each of the listed news sources for article tags containing `esports`. The API then stores the title and URL of each related article into an array which can be accessed using endpoints `/news` and `/news{id}`.
+The API searches each of the listed news sources for anchor tags containing `esports`. The API then stores the title and URL of each related article into an array which can be accessed using endpoints `/news` and `/news{id}`.
 
 ## Usage :wrench:
 | Endpoint | Description |
