@@ -1,14 +1,14 @@
-# Esports Web Scaper API
+# Esports Web Scaper API :video_game:
 The Esports Web Scraper API searches and displays esports-related articles from a list of news websites.
-## Overview
+## Overview :sunflower:
 The API searches each of the listed news sourcesfor article tags containing `esports`. The API then stores the title and URL of each related article into an array which can be accessed with endpoints `/news` and `/news{id}`.
 
-## Usage
+## Usage :wrench:
 | Endpoint | Description |
 | --- | --- |
 | `/news` | Displays esports-related articles from all sites. |
 | `/news/{id}` | Displays esports-related articles from a *specific* site. 
-## News Sites
+## News Sites :newspaper:
 | Id | URL |
 | --- | --- |
 | `theconversation` | https://theconversation.com/us/topics/ |
