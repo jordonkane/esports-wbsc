@@ -1,19 +1,17 @@
 # Esports Web Scaper API
-- 1
-## Screenshots
+The Esports Web Scraper API searches and displays esports-related articles from a list of news websites.
 ## Overview
-- 1
-- 2
-- 3
-- 4
-- 5
+The API stores the 
 ### Features
 - 1
 - 2
 - 3
 - 4
 ## Usage
-- 
+| Endpoint | Description |
+| --- | --- |
+| `/news` | Displays esports-related articles from all sites. |
+| `/news/{id}` | Displays esports-related articles from a *specific* site.  
 
 ## News Sites
 | Title | URL |
