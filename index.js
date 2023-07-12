@@ -5,25 +5,69 @@ const cheerio = require('cheerio')
 
 const app = express()
 
+const newspapers = [
+    {
+        name: '',
+        addess: '',
+        base: ''
+    },
+    {
+        name: '',
+        addess: '',
+        base: ''
+    },
+    {
+        name: '',
+        addess: '',
+        base: ''
+    },
+    {
+        name: '',
+        addess: '',
+        base: ''
+    },
+    {
+        name: '',
+        addess: '',
+        base: ''
+    },
+    {
+        name: '',
+        addess: '',
+        base: ''
+    },
+    {
+        name: '',
+        addess: '',
+        base: ''
+    },
+]
+
 const articles = []
 
-// API Homepage
+// Loops through the array of newspapers.
 
-app.get('/', (req, res) => { res.json('E-Sports Web Scraper API') })
+newspapers.forEach(newspaper => {
+    
+    // Passes URL
 
-app.get('/news', (req, res) => {
+    axios.get(newspaper.address).then(response => {
 
-    axios.get('#news-source').then((response) => {
+        // Stores "response.data" as variable "html."
+
         const html = response.data
+
+        // Passes variable into "cheerio.load."
+
         const $ = cheerio.load(html)
-        
+
         /*
             Finds elements that have the <a> tag & contain "Esports"
             Function grabs text from each of the <a> tags.
         */
 
         $('a:contains("esport")', html).each(function () {
-
+            
             // Stores article title.
 
             const title = $(this).text()
@@ -32,21 +76,31 @@ app.get('/news', (req, res) => {
 
             const url = $(this).attr('href')
 
-            // Pushes href into an array.
+            // Pushes title & URL into "articles."
 
-            articles.push ({
+            articles.push({
                 title,
-                url
+                url: newspaper.base + url,
+                source: newspaper.name
             })
         })
-
-        // Displays articles in browser.
-
-        res.json(articles)
-    }).catch((err) => console.log) // Exception handling
+    })
 
 })
 
+// API Homepage
+
+app.get('/', (req, res) => { res.json('E-Sports Web Scraper API') })
+
+app.get('/news', (req, res) => {
+    
+    // Displays articles in browser.
+
+    res.json(articles)
+
+}).catch((err) => console.log) // Exception handling
+
+app.get('/news/:newspaperId', async (req, res))
 // Listens to any changes on PORT 7000.
 
 app.listen(PORT, () => console.log(`server running on PORT ${PORT}`))
