@@ -50,7 +50,7 @@ const newspapers = [
     },
     {
         name: 'thesportjournal',
-        address: 'https://hir.harvard.edu/',
+        address: 'https://www.thesportjournal.org/',
         base: ''
     },
     {
