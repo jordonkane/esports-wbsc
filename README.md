@@ -13,7 +13,7 @@ The API searches each of the listed news sourcesfor article tags containing `esp
 | --- | --- |
 | `theconversation` | https://theconversation.com/us/topics/ |
 | `esportsnet` | https://www.esports.net/news/ |
-| `esportsinsider` | hhttps://esportsinsider.com/category/latest-news/ |
+| `esportsinsider` | https://esportsinsider.com/category/latest-news/ |
 | `wired` | https://www.techspot.com/tag/esports/ |
 | `techspot` | https://www.wired.com/tag/esports/ |
 | `theguardian` | https://www.theguardian.com/sport/esports |
