@@ -5,7 +5,7 @@ const cheerio = require('cheerio')
 
 const app = express()
 
-// News sources
+// Store news sources
 
 const newspapers = [
     {
@@ -80,42 +80,42 @@ const newspapers = [
     }
 ]
 
-// Array of newspapers
+// Create an array of newspapers.
 
 const articles = []
 
-// Loops through the array of newspapers.
+// Loop through the array of newspapers.
 
 newspapers.forEach(newspaper => {
     
-    // Passes URL
+    // Pass URL into variable:
 
     axios.get(newspaper.address).then(response => {
 
-        // Stores "response.data" as variable "html."
+        // Store "response.data" as variable "html."
 
         const html = response.data
 
-        // Passes variable into "cheerio.load."
+        // Pass variable into "cheerio.load."
 
         const $ = cheerio.load(html)
 
         /*
-            Finds elements that have the <a> tag & contain "Esports"
-            Function grabs text from each of the <a> tags.
+            Find elements that have the <a> tag & contain "Esports."
+            The function grabs text from each of the <a> tags.
         */
 
         $('a:contains("esport")', html).each(function () {
             
-            // Stores article title.
+            // Store article title.
 
             const title = $(this).text()
 
-            // Grabs href for every <a> tag.
+            // Grab href for every <a> tag.
 
             const url = $(this).attr('href')
 
-            // Pushes title & URL into "articles."
+            // Push title & URL into "articles."
 
             articles.push({
                 title,
@@ -127,11 +127,11 @@ newspapers.forEach(newspaper => {
 
 })
 
-// API Homepage
+// API Homepage:
 
 app.get('/', (req, res) => { 
 
-    // Displays API Title
+    // Display API Title
 
     res.json('E-Sports Web Scraper API') 
 
@@ -139,25 +139,25 @@ app.get('/', (req, res) => {
 
 app.get('/news', (req, res) => {
     
-    // Displays articles in browser.
+    // Display articles in browser.
 
     res.json(articles)
 
 })
 
-// Endpoint to visit specific newspaper id.
+// Endpoint to visit specific newspaper id:
 
 app.get('/news/:newspaperId', (req, res) => {
 
-    // Stores the desired newspaper.
+    // Store the desired newspaper.
 
     const newspaperId = req.params.newspaperId
 
-    // Filters array to find newspapers.
+    // Filter array to find newspapers.
 
     const newspaperAddress = newspaper.filter(newspaper => newspaper.name == newspaperId)[0].address
 
-    // Filters array to find newspaper base.
+    // Filter array to find newspaper base.
     
     const newspaperBase = newspaper.filter(newspaper => newspaper.name == newspaperId)[0].base
 
@@ -165,34 +165,34 @@ app.get('/news/:newspaperId', (req, res) => {
 
     axios.get(newspaperAddress).then(response => {
        
-        // Stores "response.data" as variable "html."
+        // Store "response.data" as variable "html."
 
         const html = response.data
 
-        // Passes variable into "cheerio.load."
+        // Pass variable into "cheerio.load."
 
         const $ = cheerio.load(html)
 
-        // Array of specific newspapers.
+        // Create an array of specific newspapers.
 
         const specificArticles = []
         
          /*
-            Finds elements that have the <a> tag & contain "Esports"
-            Function grabs text from each of the <a> tags.
+            Finds elements that have the <a> tag & contain "Esports."
+            The function grabs text from each of the <a> tags.
         */
 
         $('a:contains("esport")', html).each(function () {
             
-            // Stores article title.
+            // Store article title.
 
             const title = $(this).text()
 
-            // Grabs href for every <a> tag.
+            // Grab href for every <a> tag.
 
             const url = $(this).attr('href')
 
-            // Pushes title & URL into "articles."
+            // Push title & URL into "articles."
 
             specificArticles.push({
                 title,
@@ -201,7 +201,7 @@ app.get('/news/:newspaperId', (req, res) => {
             })
         })
 
-        // Displays output in browser.
+        // Display output in browser.
 
         res.json(specificArticles)
         
@@ -209,6 +209,6 @@ app.get('/news/:newspaperId', (req, res) => {
 
 })
 
-// Listens to any changes on PORT 7000.
+// Listen to any changes on PORT 7000.
 
 app.listen(PORT, () => console.log(`server running on PORT ${PORT}`))
