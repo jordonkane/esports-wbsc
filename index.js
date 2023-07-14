@@ -80,7 +80,7 @@ const newspapers = [
     }
 ]
 
-// Create an array of newspapers.
+// Create an empty array for newspapers.
 
 const articles = []
 
@@ -173,7 +173,7 @@ app.get('/news/:newspaperId', (req, res) => {
 
         const $ = cheerio.load(html)
 
-        // Create an array of specific newspapers.
+        // Create an empty array for specific newspapers.
 
         const specificArticles = []
         
